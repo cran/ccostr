@@ -1,87 +1,118 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <meta name="author" content="Lars Børty Nielsen, Martin Bøgsted, and Rasmus Brøndum" />
 
 
 <title>Example: Replicating st0399 results</title>
 
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
 div.sourceCode
-  {  }
+{ }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -90,13 +121,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -106,6 +144,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </script>
 
 
+
+<style type="text/css">
+
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}
+</style>
 
 <style type="text/css">body {
 background-color: #fff;
@@ -117,9 +179,6 @@ padding-right: 2em;
 font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 14px;
 line-height: 1.35;
-}
-#header {
-text-align: center;
 }
 #TOC {
 clear: both;
@@ -288,7 +347,8 @@ code > span.st { color: #d14; }
 code > span.co { color: #888888; font-style: italic; } 
 code > span.ot { color: #007020; } 
 code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
 
@@ -302,45 +362,81 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 <h1 class="title toc-ignore">Example: Replicating st0399 results</h1>
-<h4 class="author">Lars Børty Nielsen, Martin Bøgsted, and Rasmus Brøndum</h4>
+<h4 class="author">Lars Børty Nielsen, Martin Bøgsted, and Rasmus
+Brøndum</h4>
 
 
 
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(ccostr)</a></code></pre></div>
-<p>The ccostr package includes a dataset called “hcost”. The dataset comes from the Stata package of the same name <span class="citation">(Chen, Rolfes, and Zhao 2015)</span>, and we can therefore use it both as an example and to verify that the two packages reach similar estimates. First we look at the data:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">head</span>(hcost)</a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="co">#&gt; # A tibble: 6 x 7</span></a>
-<a class="sourceLine" id="cb2-3" title="3"><span class="co">#&gt;      id start  stop  cost   trt delta  surv</span></a>
-<a class="sourceLine" id="cb2-4" title="4"><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb2-5" title="5"><span class="co">#&gt; 1     1     1     1  3694     0     0   575</span></a>
-<a class="sourceLine" id="cb2-6" title="6"><span class="co">#&gt; 2     1     1     9     1     0     0   575</span></a>
-<a class="sourceLine" id="cb2-7" title="7"><span class="co">#&gt; 3     1     1     9    12     0     0   575</span></a>
-<a class="sourceLine" id="cb2-8" title="8"><span class="co">#&gt; 4     1     1    34   106     0     0   575</span></a>
-<a class="sourceLine" id="cb2-9" title="9"><span class="co">#&gt; 5     1     1   237    68     0     0   575</span></a>
-<a class="sourceLine" id="cb2-10" title="10"><span class="co">#&gt; 6     1     1   237    86     0     0   575</span></a></code></pre></div>
-<p>Now we use the ccmean function with a limit of 4 years (1461 days), we also add the interpolation term which affects the interpolation of cost between two observed time points. By default this parameter is set to zero, but to replicate the results of the Stata implementation we set it to 1.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">est &lt;-<span class="st"> </span><span class="kw">ccmean</span>(hcost, <span class="dt">L =</span> <span class="dv">1461</span>, <span class="dt">addInterPol =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb3-2" title="2">est</a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="co">#&gt; ccostr - Estimates of mean cost with censored data</span></a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-5" title="5"><span class="co">#&gt;   Observations Individuals FullyObserved Limits TotalTime MaxSurvival</span></a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt; N         9704         160            61   1461    122401        2082</span></a>
-<a class="sourceLine" id="cb3-7" title="7"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt;    Estimate Variance       SE  0.95LCL   0.95UCL</span></a>
-<a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt; AS 63725.42 19193502 4381.039 55138.59  72312.26</span></a>
-<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt; CC 74779.13 37572385 6129.632 62765.05  86793.21</span></a>
-<a class="sourceLine" id="cb3-11" title="11"><span class="co">#&gt; BT 86175.16 51593885 7182.888 72096.70 100253.62</span></a>
-<a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt; ZT 80134.84 23726332 4870.968 70587.74  89681.94</span></a>
-<a class="sourceLine" id="cb3-13" title="13"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-14" title="14"><span class="co">#&gt; Mean survival time: 1165.04 With SE: 41.94</span></a></code></pre></div>
-<p>These estimates are similar to what is found with the hcost Stata package. We can also plot these with the included generic plot function:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">plot</span>(est)</a></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(ccostr)</span></code></pre></div>
+<p>The ccostr package includes a dataset called “hcost”. The dataset
+comes from the Stata package of the same name <span class="citation">(Chen, Rolfes, and Zhao 2015)</span>, and we can
+therefore use it both as an example and to verify that the two packages
+reach similar estimates. First we look at the data:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">head</span>(hcost)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 7</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt;      id start  stop  cost   trt delta  surv</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt; 1     1     1     1  3694     0     0   575</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt; 2     1     1     9     1     0     0   575</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt; 3     1     1     9    12     0     0   575</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt; 4     1     1    34   106     0     0   575</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt; 5     1     1   237    68     0     0   575</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt; 6     1     1   237    86     0     0   575</span></span></code></pre></div>
+<p>Now we use the ccmean function with a limit of 4 years (1461 days),
+we also add the interpolation term which affects the interpolation of
+cost between two observed time points. By default this parameter is set
+to zero, but to replicate the results of the Stata implementation we set
+it to 1.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>est <span class="ot">&lt;-</span> <span class="fu">ccmean</span>(hcost, <span class="at">L =</span> <span class="dv">1461</span>, <span class="at">addInterPol =</span> <span class="dv">1</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>est</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#&gt; ccostr - Estimates of mean cost with censored data</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt;   Observations Individuals FullyObserved Limits TotalTime MaxSurvival</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; N         9704         160            61   1461    122401        2082</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt;    Estimate Variance       SE  0.95LCL   0.95UCL</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt; AS 63725.42 19193502 4381.039 55138.59  72312.26</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt; CC 74779.13 37572385 6129.632 62765.05  86793.21</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt; BT 86175.16 51593885 7182.888 72096.70 100253.62</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt; ZT 80134.84 23726332 4870.968 70587.74  89681.94</span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt; Mean survival time: 1165.04 With SE: 41.94</span></span></code></pre></div>
+<p>These estimates are similar to what is found with the hcost Stata
+package. We can also plot these with the included generic plot
+function:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">plot</span>(est)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">#&gt; Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt; ℹ Please use `linewidth` instead.</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">#&gt; ℹ The deprecated feature was likely used in the ccostr package.</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt;   Please report the issue at &lt;https://github.com/CLINDA-AAU/ccostr/issues&gt;.</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt; This warning is displayed once per session.</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt; Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt; generated.</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt; Warning: Use of `temp$Estimator` is discouraged.</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt; ℹ Use `Estimator` instead.</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co">#&gt; Warning: Use of `temp$Estimate` is discouraged.</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt; ℹ Use `Estimate` instead.</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co">#&gt; Warning: Use of `temp$&quot;0.95UCL&quot;` is discouraged.</span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="co">#&gt; ℹ Use `0.95UCL` instead.</span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="co">#&gt; Warning: Use of `temp$&quot;0.95LCL&quot;` is discouraged.</span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="co">#&gt; ℹ Use `0.95LCL` instead.</span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="co">#&gt; Warning: Use of `temp$Estimator` is discouraged.</span></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a><span class="co">#&gt; ℹ Use `Estimator` instead.</span></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a><span class="co">#&gt; Warning: Use of `temp$Estimate` is discouraged.</span></span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a><span class="co">#&gt; ℹ Use `Estimate` instead.</span></span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a><span class="co">#&gt; Warning: Use of `temp$&quot;0.95UCL&quot;` is discouraged.</span></span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a><span class="co">#&gt; ℹ Use `0.95UCL` instead.</span></span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a><span class="co">#&gt; Warning: Use of `temp$&quot;0.95LCL&quot;` is discouraged.</span></span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a><span class="co">#&gt; ℹ Use `0.95LCL` instead.</span></span></code></pre></div>
+<p><img role="img" src="data:image/png;base64,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" /><!-- --></p>
 <div id="references" class="section level3 unnumbered">
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-Chen2015">
-<p>Chen, Shuai, Jennifer Rolfes, and Hongwei Zhao. 2015. “Estimation of Mean Health Care Costs and Incremental Cost-effectiveness Ratios with Possibly Censored Data.” <em>The Stata Journal: Promoting Communications on Statistics and Stata</em> 15 (3): 698–711. <a href="https://doi.org/10.1177/1536867X1501500305">https://doi.org/10.1177/1536867X1501500305</a>.</p>
+<h3 class="unnumbered">References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-Chen2015" class="csl-entry">
+Chen, Shuai, Jennifer Rolfes, and Hongwei Zhao. 2015. <span>“<span class="nocase">Estimation of Mean Health Care Costs and Incremental
+Cost-effectiveness Ratios with Possibly Censored Data</span>.”</span>
+<em>The Stata Journal: Promoting Communications on Statistics and
+Stata</em> 15 (3): 698–711. <a href="https://doi.org/10.1177/1536867X1501500305">https://doi.org/10.1177/1536867X1501500305</a>.
 </div>
 </div>
 </div>
